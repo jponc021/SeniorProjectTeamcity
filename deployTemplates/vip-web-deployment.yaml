@@ -1,0 +1,22 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: vip-web
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: vip
+        role: web
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: vip-nodejs
+          image: pepote53/senior-project-vip-web:{{vip_web_version}}
+          ports:
+            - name: nodejs-express
+              containerPort: 3000
+          imagePullPolicy: IfNotPresent

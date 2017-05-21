@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: vip-mongo
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: vip
+        role: mongo
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: mongodb
+          image: mongo
+          ports:
+            - name: mongodb
+              containerPort: 27017
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: vip-mongo
+              mountPath: "/data/db"
+      volumes:
+        - name: vip-mongo
+          persistentVolumeClaim:
+            claimName: vip-mongo

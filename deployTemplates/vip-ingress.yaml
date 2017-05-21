@@ -1,0 +1,13 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: vip-ingress
+spec:
+  rules:
+    - host: {{namespace}}.ignorelist.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: vip-web
+              servicePort: 3000

@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: vip-web
+spec:
+  ports:
+    - name: nodejs-express
+      port: 3000
+  selector:
+    app: vip
+    role: web
