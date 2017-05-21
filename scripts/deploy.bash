@@ -55,16 +55,17 @@ echo
 kubectl="kubectl -n $namespace"
 kubewait="./waitKube.bash"
 
-echo "Deleting namespace $namespace"
-${kubectl} delete ns ${namespace}
-echo "Waiting for namespace $namespace to be deleted"
-${kubewait} delete namespace ${namespace} "$kubectl"
-echo
-
-echo "Creating namespace $namespace"
-${kubectl} create ns ${namespace}
-echo "Waiting for namespace $namespace to be created"
-${kubewait} create namespace ${namespace} "$kubectl"
+echo "Deleting resources if they exist"
+${kubectl} delete persistentVolumeClaim vip-mongo
+${kubectl} delete deployment vip-mongo
+${kubectl} delete service vip-mongo
+${kubectl} delete deployment vip-web
+${kubectl} delete service vip-web
+${kubectl} delete ingress vip-ingress
+echo "Waiting for existing resources to be deleted"
+${kubewait} delete persistentVolumeClaim vip-mongo "$kubectl"
+${kubewait} delete deployment vip-mongo "$kubectl"
+${kubewait} delete deployment vip-web "$kubectl"
 echo
 
 echo "Creating persistentVolumeClaim vip-mongo"
