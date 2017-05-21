@@ -58,7 +58,7 @@ kubewait="./waitKube.bash"
 echo "Deleting resources if they exist"
 ${kubectl} delete persistentVolumeClaim vip-mongo
 ${kubectl} delete deployment vip-mongo
-${kubectl} delete service vip-mongo
+${kubectl} delete service mongo
 ${kubectl} delete deployment vip-web
 ${kubectl} delete service vip-web
 ${kubectl} delete ingress vip-ingress
