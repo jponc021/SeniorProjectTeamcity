@@ -1,5 +1,0 @@
-module.exports = {
-'port':3000,
-'database':'mongodb://mongo/admin',
-'secret':'whateveryouwant'
-};
