@@ -47,12 +47,12 @@ function configureTcpLoadBalancing {
     ${kubectl} patch configMap nginx-tcp-ingress-configmap --type=json -p "[{\"op\":\"add\",\"path\":\"/data/${mongoPort}\",\"value\":\"${namespace}/mongo:27017\"}]"
 }
 #--kubeconfig /home/josep/kubernetes/conf/admin.conf
-kubectl="kubectl -n ingress-controller"
+kubectl="kubectl --request-timeout=10s -n ingress-controller"
 echo "Configuring tcp load balancing for mongo"
 configureTcpLoadBalancing
 echo
 
-kubectl="kubectl -n $namespace"
+kubectl="kubectl --request-timeout=10s -n $namespace"
 kubewait="./waitKube.bash"
 
 echo "Deleting resources if they exist"
