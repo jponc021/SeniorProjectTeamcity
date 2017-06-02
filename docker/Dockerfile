@@ -16,8 +16,6 @@ COPY Code/webapp/app.js /Code/webapp/app.js
 COPY Code/webapp/index.html /Code/webapp/index.html
 COPY Code/webapp/routes.js /Code/webapp/routes.js
 
-COPY config /Code/api/config/config
-
 COPY entrypoint.bash /entrypoint.bash
 
 EXPOSE 3000
