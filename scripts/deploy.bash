@@ -33,6 +33,7 @@ function configureTcpLoadBalancing {
     mongoPort=65534
     found="true"
     while [ "${found}" = "true" ]; do
+        mongoPort=$((mongoPort - 1))
         found="false"
         currentPort=""
         for port in ${portsInUse}; do
@@ -42,9 +43,10 @@ function configureTcpLoadBalancing {
                 found="true"
             fi
         done
-        mongoPort=$((mongoPort - 1))
     done
     ${kubectl} patch configMap nginx-tcp-ingress-configmap --type=json -p "[{\"op\":\"add\",\"path\":\"/data/${mongoPort}\",\"value\":\"${namespace}/mongo:27017\"}]"
+    #set the mongo port on teamcity
+    echo "##teamcity[setParameter name='MONGO_PORT' value='${mongoPort}']"
 }
 #--kubeconfig /home/josep/kubernetes/conf/admin.conf
 kubectl="kubectl --request-timeout=10s -n ingress-controller"
