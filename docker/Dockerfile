@@ -2,7 +2,6 @@ FROM node:7.10.0
 
 RUN mkdir /Code
 COPY Code/api /Code/api
-COPY Code/node_modules /Code/node_modules
 COPY Code/package.json /Code/package.json
 COPY Code/server.js /Code/server.js
 COPY Code/deployment /Code/deployment
